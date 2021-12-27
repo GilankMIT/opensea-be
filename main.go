@@ -5,9 +5,10 @@ import (
 	"log"
 	"open_sea_be/controller/nft_item"
 	"open_sea_be/controller/user"
+	"os"
 )
 
-func main(){
+func main() {
 	app := fiber.New()
 
 	app.Post("/api/register/consult", func(c *fiber.Ctx) error {
@@ -18,7 +19,7 @@ func main(){
 		return user.UserRegister(c)
 	})
 
-	app.Post("/api/login", func(c *fiber.Ctx) error{
+	app.Post("/api/login", func(c *fiber.Ctx) error {
 		return user.UserLogin(c)
 	})
 
@@ -26,28 +27,29 @@ func main(){
 		return user.UserWalletLinkage(c)
 	})
 
-	app.Get("/api/profile", func(c *fiber.Ctx) error{
+	app.Get("/api/profile", func(c *fiber.Ctx) error {
 		return user.GetProfile(c)
 	})
 
-	app.Get("/api/my-balance", func(c *fiber.Ctx) error{
+	app.Get("/api/my-balance", func(c *fiber.Ctx) error {
 		return user.GetProfile(c)
 	})
 
-	app.Get("/api/nft_items", func(c *fiber.Ctx) error{
+	app.Get("/api/nft_items", func(c *fiber.Ctx) error {
 		return nft_item.GetAll(c)
 	})
 
-	app.Get("/api/nft_items/top", func(c *fiber.Ctx) error{
+	app.Get("/api/nft_items/top", func(c *fiber.Ctx) error {
 		return nft_item.GetTopItems(c)
 	})
 
-	app.Get("/api/nft_items/detail", func(c *fiber.Ctx) error{
+	app.Get("/api/nft_items/detail", func(c *fiber.Ctx) error {
 		return nft_item.GetItemDetail(c)
 	})
 
 	log.Println("app listening to 8010")
-	if err := app.Listen(":8010"); err != nil{
+	port := os.Getenv("PORT")
+	if err := app.Listen(":" + port); err != nil {
 		log.Fatal(err.Error())
 	}
 }
