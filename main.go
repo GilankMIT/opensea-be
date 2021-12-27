@@ -47,7 +47,7 @@ func main(){
 	})
 
 	log.Println("app listening to 8010")
-	if err := app.Listen("192.168.0.16:8010"); err != nil{
+	if err := app.Listen(":8010"); err != nil{
 		log.Fatal(err.Error())
 	}
 }
